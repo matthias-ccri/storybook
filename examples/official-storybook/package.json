@@ -37,6 +37,7 @@
     "@storybook/addons": "6.0.0-alpha.28",
     "@storybook/components": "6.0.0-alpha.28",
     "@storybook/core-events": "6.0.0-alpha.28",
+    "@storybook/extractor": "6.0.0-alpha.28",
     "@storybook/node-logger": "6.0.0-alpha.28",
     "@storybook/react": "6.0.0-alpha.28",
     "@storybook/source-loader": "6.0.0-alpha.28",
