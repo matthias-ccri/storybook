@@ -149,7 +149,11 @@ const handleExamples = async deployables => {
     const cwd = p(['examples', d]);
 
     await exec(`yarn`, [`build-storybook`, `--output-dir=${out}`, '--quiet'], { cwd });
-    await exec(`yarn`, [`extract-storybook`, out, `${out}/stories.json`], { cwd });
+    await exec(
+      `npx`,
+      ['-p', '@storybook/extractor', `extract-storybook`, '--', out, `${out}/stories.json`],
+      { cwd }
+    );
 
     logger.log('-------');
     logger.log(`✅ ${d} built`);
