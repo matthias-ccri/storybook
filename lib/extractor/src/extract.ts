@@ -1,9 +1,10 @@
-import puppeteer from 'puppeteer';
+import path from 'path';
 import { writeFile } from 'fs-extra';
 import express from 'express';
 import getPort from 'get-port';
+import puppeteer from 'puppeteer';
 
-const read = async url => {
+const read = async (url: string) => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
@@ -14,8 +15,9 @@ const read = async url => {
   );
   const data = JSON.parse(
     await page.evaluate(async () => {
-      // eslint-disable-next-line no-undef
-      const d = window.__STORYBOOK_STORY_STORE__.extract();
+      /* eslint-disable no-undef */
+      // @ts-ignore
+      const d = window.__STORYBOOK_STORY_STORE__.extract() as Record<string, any>;
 
       const result = Object.entries(d).reduce(
         (acc, [k, v]) => ({
@@ -37,6 +39,7 @@ const read = async url => {
         {}
       );
       return JSON.stringify(result, null, 2);
+      /* eslint-enable no-undef */
     })
   );
 
@@ -46,14 +49,14 @@ const read = async url => {
   return data;
 };
 
-const useLocation = async path => {
-  if (path.match(/^http/)) {
-    return [path, async () => {}];
+const useLocation = async (input: string): Promise<[string, Function]> => {
+  if (input.match(/^http/)) {
+    return [input, async () => {}];
   }
 
   const app = express();
 
-  app.use(express.static(path));
+  app.use(express.static(input));
 
   const port = await getPort();
 
@@ -72,7 +75,10 @@ const useLocation = async path => {
   });
 };
 
-export async function extract(input, targetPath) {
+export async function extract(
+  input = 'storybook-static',
+  targetPath: string = path.join(input, 'stories.json')
+) {
   if (input && targetPath) {
     const [location, exit] = await useLocation(input);
 

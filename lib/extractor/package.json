@@ -1,0 +1,53 @@
+{
+  "name": "@storybook/extractor",
+  "version": "6.0.0-alpha.27",
+  "description": "Extract Storybook stories & metadata",
+  "keywords": [
+    "storybook"
+  ],
+  "homepage": "https://github.com/storybookjs/storybook/tree/master/lib/api",
+  "bugs": {
+    "url": "https://github.com/storybookjs/storybook/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/storybookjs/storybook.git"
+  },
+  "bin": {
+    "extract-storybook": "./bin/extractor.js"
+  },
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/**/*",
+    "README.md",
+    "*.js",
+    "*.d.ts",
+    "ts3.5/**/*"
+  ],
+  "scripts": {
+    "prepare": "node ../../scripts/prepare.js"
+  },
+  "dependencies": {
+    "meow": "^6.1.0",
+    "puppeteer": "^2.1.1",
+    "fs-extra": "^9.0.0",
+    "express": "^4.17.1",
+    "get-port": "^5.1.1"
+  },
+  "devDependencies": {
+    "@types/meow": "^5.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "4b9d901add9452525135caae98ae5f78dd8da9ff",
+  "typesVersions": {
+    "<=3.5": {
+      "*": [
+        "ts3.5/*"
+      ]
+    }
+  }
+}
